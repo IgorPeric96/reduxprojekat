@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const middlewareActions = {
+  performCounterReset: () => {},
+};
 export const counterSlice = createSlice({
   name: "counter",
   initialState: {
@@ -16,15 +18,11 @@ export const counterSlice = createSlice({
       state.value = 0;
     },
     addAmount: (state, action) => {
-      console.log({ action });
-
       state.value += action.payload;
     },
+    ...middlewareActions,
   },
 });
-
-console.log(counterSlice.actions);
-
-export const { increment, reset, decrement, addAmount } = counterSlice.actions;
-
+export const { increment, decrement, reset, addAmount, performCounterReset } =
+  counterSlice.actions;
 export default counterSlice.reducer;

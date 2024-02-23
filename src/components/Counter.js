@@ -1,82 +1,63 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { counterSelector } from "../store/counter/selectors";
-import { decrement, increment, reset } from "../store/counter/slice";
-
-function Counter() {
-  //   const [count, setCount] = useState(0);
-
+import {
+  addAmount,
+  decrement,
+  increment,
+  performCounterReset,
+  reset,
+} from "../store/counter/slice";
+export default function Counter() {
+  //   const [counterValue, setCounterValue] = useState(0);
   const dispatch = useDispatch();
-
   const counterValue = useSelector(counterSelector);
-
-  const [addAmount, setAddAmount] = useState("");
-
-  const [amountToAdd, setAmountToAdd] = useState("");
-
-  const handleIncrement = () => {};
-
-  //   const increment = () => {
-  //     setCount(count + 1);
+  const [amountToAdd, setAmountToAdd] = useState(0);
+  //   const handleIncrement = () => {
+  //     setCounterValue(counterValue + amountToAdd);
   //   };
-
-  //   const decrement = () => {
-  //     setCount(count - 1);
-  //   };
-
-  //   const reset = () => {
-  //     setCount(0);
-  //   };
-
-  //   const addAmountToCount = () => {
-  //     setCount((prevCount) => prevCount + Number(addAmount));
-
-  //     setAddAmount("");
-  //   };
-
-  //   const handleInputChange = (e) => {
-  //     setAddAmount(e.target.value);
-  //   };
-
   return (
     <div>
-      <h2>Counter: {counterValue}</h2>
-      <button
-        onClick={() => {
-          dispatch(increment());
-        }}
-      >
-        Increment
-      </button>
-      <button
-        onClick={() => {
-          dispatch(decrement());
-        }}
-      >
-        Decrement
-      </button>
-      <button
-        onClick={() => {
-          dispatch(reset());
-        }}
-      >
-        Reset
-      </button>
-      <input
-        type="text"
-        value={amountToAdd}
-        onChange={(e) => setAmountToAdd(Number)}
-      />
-      <button
-        onClick={() => {
-          dispatch(addAmount());
-        }}
-      >
-        Add Amount
-      </button>
+      <div>
+        <h2>Counter: {counterValue}</h2>
+        <button
+          onClick={() => {
+            dispatch(increment());
+          }}
+        >
+          Increment
+        </button>
+        <button
+          onClick={() => {
+            dispatch(decrement());
+          }}
+        >
+          Decrement
+        </button>
+        <button
+          onClick={() => {
+            dispatch(performCounterReset());
+          }}
+        >
+          reset
+        </button>
+      </div>
+      <div>
+        <input
+          type="number"
+          value={amountToAdd}
+          onChange={(e) => {
+            setAmountToAdd(Number(e.target.value));
+          }}
+        />
+        <button
+          onClick={() => {
+            dispatch(addAmount(amountToAdd));
+          }}
+        >
+          Add Amount
+        </button>
+      </div>
     </div>
   );
 }
-
-export default Counter;
